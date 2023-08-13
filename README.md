@@ -14,9 +14,9 @@
 5. Изучить редактор.
 6. После создания виджета открываем OBS
 7. Создать в источниках "браузер"<br>
-![image](https://github.com/zevordex/BoostyGoal/assets/60899690/cd9c41fd-af0a-4d49-aa89-b3262ff63924)
+![image](https://github.com/zevordex/BoostyGoal/assets/60899690/b3311a4f-61f2-407e-a7d4-1b0c7288481e)
 9. В настройках браузера нажать на галочки: локальный файл, отключать когда не видим.
 10. Установить путь до виджета<br>
-![image](https://github.com/zevordex/BoostyGoal/assets/60899690/46e63572-d1ec-41c8-ac0b-85f75ae9bea7)
+![image](https://github.com/zevordex/BoostyGoal/assets/60899690/68a8eafe-fbb8-4b31-8c12-23bfd5636001)
 11. Убедиться в том что всё работает как надо.
 
