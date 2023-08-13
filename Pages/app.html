@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="assets/app.css">
+        <meta charset="utf-8">
+        <title>BoostyGoalV3</title>
+    </head>
+    <body>
+        <div class="window-container">
+            <h1 class="menu-header">Панель управления</h1>
+            <div class="horizontal-flex">
+                <div class="widgets-panel">
+                    <ul class="widgets-list">
+                        
+                    </ul>
+                    <button id="add-widget">Добавить виджет</button>
+                    <button id="add-widget">Пересобрать виджеты</button>
+                    <h5>Журнал действий</h5>
+                    <textarea class="actions-log" readonly></textarea>
+                </div>
+                <div class="settings-panel">
+                    <div class="horizontal-flex">
+                        <p class="language-text">Язык</p>
+                        <select>
+                            <option>Русский</option>
+                            <option>English</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p class="menu-footer">Не открывайте больше одного экземпляра этой страницы!</p>    
+        </div>
+        <div class="window-space"></div>
+        <div class="window-container">
+            <h3 class="widget-header">Виджет не выбран</h3>
+            <div class="widget-redactor hidden">
+                <p class="widget-guide-1">Настройки текста <b class="text-guide" title="Поддерживает HTML разметку">(?)</b></p>
+                <p class="widget-guide-2">Доступные переменные:  
+                    <b class="text-guide" title="Описание цели сбора">{Description}</b> 
+                    <b class="text-guide" title="Текущее количество подписчиков в сборе">{Current}</b> 
+                    <b class="text-guide" title="Максимальное количество подписчиков в сборе">{Maximum}</b> 
+                </p>
+                <textarea class="widget-source-code"></textarea>
+                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
+                    <p id="widget-setting-text" title="Пример: https://boosty.to/zevordex">Ссылка на бусти: </p><input id="widget-link-input" type="text">
+                </div>
+                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
+                    <p id="widget-setting-text" title="от 0 до n">Индекс цели: </p><input id="widget-target-input" type="text">
+                </div>
+                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
+                    <p id="widget-setting-text" title="В секундах">Интервал обновления: </p><input id="widget-interval-input" type="text">
+                </div>
+                <div class="horizontal-flex">
+                    <button id="save-widget" title="Перезаписывает виджеты на сервере">Сохранить на сервер</button>
+                    <button id="rename-widget">Переименовать</button>
+                    <button id="delete-widget">Удалить</button>
+                </div>
+            </div>
+        </div>
+        <script src="assets/app.js"></script>
+    </body>
+</html>

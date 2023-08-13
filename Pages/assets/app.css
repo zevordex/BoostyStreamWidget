@@ -1,0 +1,146 @@
+:root{
+    --primary-color: #fab22e;
+    --primary-color-hover: #ffcf76;
+}
+.hidden{
+    visibility: hidden;
+}
+
+
+html{
+    margin: 0;
+    padding: 0;
+    color: var(--primary-color);
+    font-family: consolas;
+}
+button{
+    color: black;
+    margin-top: 2px;
+    background-color: var(--primary-color);
+    font-family: consolas;
+    font-weight: bold;
+    border-radius: 9px;
+    border: 0px;
+    font-size: 15px;
+}
+input{
+    background-color: #191919;
+    color:white;
+    border: 1px solid var( --primary-color);
+}
+button:hover{
+    background-color: var(--primary-color-hover);
+}
+button:active{
+    background-color: var(--primary-color);
+}
+select{
+    background-color: #303030;
+    border: var(--primary-color) 1px solid;
+    color: var(--primary-color);
+    border-radius: 3px;
+}
+body{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #161616;
+    justify-content: center;
+    margin-top: 30px;
+}
+.horizontal-flex{
+    display: flex;
+    flex-direction: row;
+}
+.window-space{
+    width: 100px;
+    display: flex;
+}
+.window-container{
+    background: linear-gradient(45deg, #202020,#252525);
+    height: 800px;
+    width: 600px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.widget-header{
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+.menu-header{
+    text-align: center;
+    width: 100%;
+}
+.menu-footer{
+    margin-top: auto;
+    text-align: center;
+    width: 100%;
+}
+.widgets-panel{
+    width: 300px;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.widgets-list{
+    border: var(--primary-color) 1px solid;
+    border-radius: 5px;
+    list-style: none;
+    height: 350px;
+    padding: 0;
+    margin: 0;
+}
+.widgets-list li{
+    font-size: 20px;
+}
+.widgets-list li:hover{
+    background-color: rgba(255, 255, 255, 0.10)
+}
+.widgets-list li[active]{
+    background-color: rgba(255, 255, 255, 0.20)
+}
+.actions-log{
+    resize: none;
+    width: 100%;
+    height: 125px;
+    background-color: #191919;
+    color: white;
+}
+.widget-redactor{
+    width: 450px;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.widget-source-code{
+    resize: none;
+    width: 100%;
+    height: 125px;
+    background-color: #191919;
+    color:white;
+}
+.text-guide{
+    cursor: help;
+}
+.widget-guide-1{
+    margin: 0;
+}
+
+.widget-guide-2{
+    margin: 0;
+    margin-bottom: 15px;
+}
+#widget-setting-text{
+    margin: 0;
+}
+/*SETTINGS*/
+.language-text{
+    margin: 0;
+    margin-right: 10px;
+}
