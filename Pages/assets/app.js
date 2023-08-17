@@ -35,6 +35,12 @@ document.querySelector('#widget-interval-input').addEventListener('change',ev=>{
 document.querySelector('#widget-link-input').addEventListener('change',ev=>{
     storage.widgets[selectedWidgetIndex].link = ev.target.value;
 })
+document.querySelector('#widget-JS-input').addEventListener('change',ev=>{
+    storage.widgets[selectedWidgetIndex].JS = ev.target.value;
+})
+document.querySelector('#widget-CSS-input').addEventListener('change',ev=>{
+    storage.widgets[selectedWidgetIndex].CSS = ev.target.value;
+})
 function widgetSelected(id){
     let index = id.replace('w_id-','');
     if (index == 'none'){
@@ -50,6 +56,8 @@ function widgetSelected(id){
     document.querySelector('#widget-target-input').value = widget.goalIndex;
     document.querySelector('#widget-interval-input').value = widget.refreshInterval;
     document.querySelector('#widget-link-input').value = widget.link;
+    document.querySelector('#widget-JS-input').value = widget.JS;
+    document.querySelector('#widget-CSS-input').value = widget.CSS;
     console.log(storage)
 }
 function renameWidget(){
@@ -86,6 +94,8 @@ function addWidget(){
     widget.goalIndex = 0;
     widget.refreshInterval = 5;
     widget.link = "NONE";
+    widget.JS = "base.js";
+    widget.CSS = "base.css";
     storage.widgets.push(widget);
     reloadWidgetList();
     actionsLog.value+='Виджет добавлен\n'

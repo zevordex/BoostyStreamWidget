@@ -2,6 +2,7 @@ body{
     margin:0;
     color:white;
     font-family: consolas;
+    font-size: 36px;
 }
 main{
     height: auto;

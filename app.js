@@ -59,31 +59,18 @@ async function serverHandler(req,res){
                 res.end(await fs.readFileSync('./pages'+queryPath,'utf-8'));
                 return;
             }
+            res.end('404');
+        }
+        if (queryPath.startsWith('/widget/')){
+            if (await (fs.existsSync('.'+queryPath))){
+                res.end(await fs.readFileSync('.'+queryPath,'utf-8'));
+                return;
+            }
+            res.end('404');
         }
         if (req.method == "GET" && queryPath == "/"){
             res.end(await fs.readFileSync('./pages/app.html','utf-8'));
             return;
-        }
-        if (req.method == "GET" && queryPath == "/widget"){
-            if (storage.widgets){
-                let widget = storage.widgets.find(x => x.id === parseInt(queryData.id));
-                if (widget){
-                    let bdata = {}
-                    try{
-                        bdata = await getBoostyGoal(widget.link,widget.goalIndex);
-                    }catch(e){
-                        console.log(CS.err,`An error in widget #${widget.id}, maybe you forgot the link?`);
-                        return;
-                    }
-                    let text = widget.text;
-                    text = text.replaceAll('{Description}',bdata.description).replaceAll('\n','<br>');
-                    text = text.replaceAll('{Current}',bdata.currentSum).replaceAll('{Maximum}',bdata.targetSum);
-                    res.end(text);
-                    console.log(CS.out,`Widget ${widget.id} updated`)
-                    return;
-                }
-            }
-            res.end('ОШИБКА')
         }
         if (req.method == "GET" && queryPath == "/storage"){
             res.end(JSON.stringify(storage));
@@ -92,31 +79,36 @@ async function serverHandler(req,res){
             storage = reqbody;
             await fs.writeFileSync('./storage.json',JSON.stringify(storage));
             res.end('OK');
-            regenerateWidgets();
+        }
+        if (req.method == "GET" && queryPath == "/widgetLink"){
+            if (storage.widgets){
+                let widget = storage.widgets.find(x => x.id === parseInt(queryData.id));
+                if (widget){
+                    let bdata = {}
+                    try{
+                        bdata = await getBoostyGoal(widget.link,widget.goalIndex);
+                    }catch(e){
+                        console.log(CS.err,`An error in widget #${widget.id}, maybe you forgot the link?`);
+                        bdata.targetSum = 0;
+                        bdata.currentSum = 0;
+                        bdata.description = "Ошибка, вероятно ошибка в ссылке или индексе"
+                    }
+                    let html = await fs.readFileSync('./widget/template.html','utf-8');
+                    html = html.replaceAll('{css_name}',widget.CSS).replaceAll('{script_name}',widget.JS);
+                    html = html.replaceAll('{refresh_interval}',widget.refreshInterval)
+                    let text = widget.text;
+                    text = text.replaceAll('{Description}',bdata.description).replaceAll('\n','<br>');
+                    text = text.replaceAll('{Current}',bdata.currentSum).replaceAll('{Maximum}',bdata.targetSum);
+                    html = html.replaceAll('{text}',text);
+                    res.end(html);
+                    console.log(CS.out,`Widget ${widget.id} sended`);
+                    return;
+                }
+            }
+            res.end('ERROR')
         }
     })
 }
-
-
-async function regenerateWidgets(){
-    let template = await fs.readFileSync('./ObsWidgets/template.html','utf-8');
-    if (storage.widgets){
-        let htmls = fs.readdirSync('./ObsWidgets/');
-        for (let i = 0; i<htmls.length; i++){
-            if (htmls[i].startsWith('widget-')){
-                if (!storage.widgets.some(e => e.id === parseInt(htmls[i].replace('widget-','').replace('.html','')))) {
-                    fs.unlinkSync(`./ObsWidgets/${htmls[i]}`);
-                    console.log(`DELETE ${htmls[i]}`)
-                }
-            }
-        }
-        storage.widgets.forEach(el=>{
-            let modify = template.replaceAll('{refresh_interval}',el.refreshInterval).replaceAll('{widget_id}',el.id);
-            fs.writeFileSync(`./ObsWidgets/widget-${el.id}.html`,modify);
-        })
-    }
-}
-
 async function getBoostyGoal(page,index){
     let promise = new Promise((resolve,reject)=>{
         https.get(page, function(res) {

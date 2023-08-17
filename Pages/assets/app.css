@@ -28,6 +28,11 @@ input{
     color:white;
     border: 1px solid var( --primary-color);
 }
+input[type="color"]{
+    background-color: #191919;
+    color:white;
+    border: 0;
+}
 button:hover{
     background-color: var(--primary-color-hover);
 }
@@ -61,7 +66,7 @@ body{
 .window-container{
     background: linear-gradient(45deg, #202020,#252525);
     height: 800px;
-    width: 600px;
+    width: 620px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -112,7 +117,6 @@ body{
     color: white;
 }
 .widget-redactor{
-    width: 450px;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
@@ -136,8 +140,12 @@ body{
     margin: 0;
     margin-bottom: 15px;
 }
-#widget-setting-text{
+.setting-text{
     margin: 0;
+    margin-right: 3px;
+}
+.setting-option{
+    margin-left: auto;
 }
 /*SETTINGS*/
 .language-text{

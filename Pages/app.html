@@ -4,7 +4,7 @@
     <head>
         <link rel="stylesheet" href="assets/app.css">
         <meta charset="utf-8">
-        <title>BoostyGoalV3</title>
+        <title>BoostyGoal_V0.5</title>
     </head>
     <body>
         <div class="window-container">
@@ -21,10 +21,19 @@
                 <div class="settings-panel">
                     <div class="horizontal-flex">
                         <p class="language-text">Язык</p>
-                        <select>
+                        <select disabled class="setting-option">
                             <option>Русский</option>
                             <option>English</option>
                         </select>
+                    </div>
+                    <div class="horizontal-flex">
+                        <p class="setting-text">Цвет </p>
+                        <input class="setting-option"type="color" disabled>
+
+                    </div>
+                    <div class="horizontal-flex">
+                        <p class="setting-text">Цвет #2</p>
+                        <input class="setting-option"type="color" disabled>
                     </div>
                 </div>
             </div>
@@ -41,14 +50,20 @@
                     <b class="text-guide" title="Максимальное количество подписчиков в сборе">{Maximum}</b> 
                 </p>
                 <textarea class="widget-source-code"></textarea>
-                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
-                    <p class="text-guide" id="widget-setting-text" title="Пример: https://boosty.to/zevordex">Ссылка на бусти: </p><input id="widget-link-input" type="text">
+                <div class="horizontal-flex" style="margin-top:10px; margin-bottom: 10px;" title="Пример: https://boosty.to/zevordex">
+                    <p class="text-guide setting-text">Ссылка на бусти: </p><input class="setting-option" id="widget-link-input" type="text">
                 </div>
-                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
-                    <p class="text-guide" id="widget-setting-text" title="Порядок цели сбора от 0 до n">Индекс цели: </p><input id="widget-target-input" type="text">
+                <div class="horizontal-flex" style="margin-top:10px; margin-bottom: 10px;" title="Порядок цели сбора от 0 до n">
+                    <p class="text-guide setting-text">Индекс цели: </p><input class="setting-option" id="widget-target-input" type="text">
                 </div>
-                <div class="horizontal-flex" style="margin-top:15px; margin-bottom: 15px;">
-                    <p class="text-guide" id="widget-setting-text" title="Интервал обновления виджета в секундах">Интервал обновления: </p><input id="widget-interval-input" type="text">
+                <div class="horizontal-flex" style="margin-top:10px; margin-bottom: 10px;" title="Интервал обновления виджета в секундах">
+                    <p class="text-guide setting-text">Интервал обновления: </p><input class="setting-option" id="widget-interval-input" type="text">
+                </div>
+                <div class="horizontal-flex" style="margin-top:10px; margin-bottom: 10px;" title="Использовать другой файл CSS">
+                    <p class="text-guide setting-text">Свой файл стилей: </p><input class="setting-option" id="widget-CSS-input" type="text">
+                </div>
+                <div class="horizontal-flex" style="margin-top:10px; margin-bottom: 10px;" title="Использовать другой файл JS">
+                    <p class="text-guide setting-text">Свой файл скриптов: </p><input class="setting-option" id="widget-JS-input" type="text">
                 </div>
                 <div class="horizontal-flex">
                     <button id="save-widget" title="Перезаписывает виджеты на сервере">Сохранить на сервер</button>
