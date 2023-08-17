@@ -119,6 +119,8 @@ async function getBoostyGoal(page,index){
             });
             res.on('end',(ev)=>{
                 let page = parse(htmlpage);
+                let res = JSON.parse(page.querySelector('#initial-state').textContent).target.targets.data[index];
+                if (!res) reject();
                 resolve(JSON.parse(page.querySelector('#initial-state').textContent).target.targets.data[index]);
             })
         }).on('error', function(err) {

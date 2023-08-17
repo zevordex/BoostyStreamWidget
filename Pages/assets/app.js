@@ -58,6 +58,7 @@ function widgetSelected(id){
     document.querySelector('#widget-link-input').value = widget.link;
     document.querySelector('#widget-JS-input').value = widget.JS;
     document.querySelector('#widget-CSS-input').value = widget.CSS;
+    document.querySelector('#widget-link-output').textContent = 'http://localhost:2727/widgetLink?id='+widget.id;
     console.log(storage)
 }
 function renameWidget(){
