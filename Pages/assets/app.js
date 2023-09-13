@@ -63,13 +63,13 @@ function widgetSelected(id){
 }
 function renameWidget(){
     let name = prompt('Введите новое имя виджету');
-    if (name !=''){
+    if (name !='' && name){
         storage.widgets[selectedWidgetIndex].name =name;
+        reloadWidgetList();
+        actionsLog.value+='Виджет переименован\n'
+        saveStorage();
+        widgetSelected('w_id-'+selectedWidgetIndex)
     }
-    reloadWidgetList();
-    actionsLog.value+='Виджет переименован\n'
-    saveStorage();
-    widgetSelected('w_id-'+selectedWidgetIndex)
 }
 function deleteWidget(){
     if (confirm('Вы уверены что хотите удалить виджет?')){
