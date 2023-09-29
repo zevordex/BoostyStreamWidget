@@ -1,5 +1,6 @@
 let storage = {};
 let selectedWidgetIndex = -1;
+var root = document.querySelector(':root');
 let actionsLog = document.querySelector('.actions-log')
 document.addEventListener('click',ev=>{
     if (ev.target){
@@ -16,8 +17,15 @@ document.addEventListener('click',ev=>{
 })
 document.addEventListener("DOMContentLoaded", async (ev) => {
     storage = await fetch('/storage').then((response) => {return response.json();}).then((data) => {return data});
+    initSettings();
     reloadWidgetList();
 });
+function initSettings(){
+    root.style.setProperty('--primary-color', storage.settings.mainColor);
+    root.style.setProperty('--primary-color-hover', storage.settings.hoverColor);
+    document.querySelector('#color-input-main').value = storage.settings.mainColor;
+    document.querySelector('#color-input-hover').value = storage.settings.hoverColor;
+}
 document.querySelector('#add-widget').addEventListener('click',addWidget);
 document.querySelector('#save-widget').addEventListener('click',saveStorage);
 document.querySelector('#rename-widget').addEventListener('click',renameWidget);
@@ -41,6 +49,33 @@ document.querySelector('#widget-JS-input').addEventListener('change',ev=>{
 document.querySelector('#widget-CSS-input').addEventListener('change',ev=>{
     storage.widgets[selectedWidgetIndex].CSS = ev.target.value;
 })
+
+//Settings
+document.querySelector('#color-input-main').addEventListener('input',ev=>{
+    root.style.setProperty('--primary-color', ev.target.value);
+    if (storage.settings){
+        storage.settings.mainColor = ev.target.value;
+    }else{
+        storage.settings = {};
+    }
+})
+document.querySelector('#color-input-hover').addEventListener('input',ev=>{
+    root.style.setProperty('--primary-color-hover', ev.target.value);
+    if (storage.settings){
+        storage.settings.hoverColor = ev.target.value;
+    }else{
+        storage.settings = {};
+    }
+})
+document.querySelector('#settings-default').addEventListener('click',ev=>{
+    if (confirm('Вы уверены что хотите сбросить настройки? Это повлияет только на колонки выше.')){
+    storage.settings = {lang:'RU',mainColor:"#fab22e",hoverColor:"#ffcf76"}
+        actionsLog.value+='Настройки сброшены\n'
+        initSettings();
+        saveStorage();
+    }
+})
+
 function widgetSelected(id){
     let index = id.replace('w_id-','');
     if (index == 'none'){
