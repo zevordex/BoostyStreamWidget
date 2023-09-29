@@ -2,6 +2,7 @@
     --primary-color: #fab22e;
     --primary-color-hover: #ffcf76;
 }
+/*PROGRESS-BAR*/
 .hidden{
     visibility: hidden;
 }
@@ -153,6 +154,7 @@ body{
     padding: 2px;
     font-size: 15px;
 }
+
 /*SETTINGS*/
 
 .language-text{

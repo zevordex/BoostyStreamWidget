@@ -94,9 +94,14 @@ async function serverHandler(req,res){
                         bdata.description = "Ошибка, вероятно ошибка в ссылке или индексе"
                     }
                     let html = await fs.readFileSync('./widget/template.html','utf-8');
+                    let percent = Math.round(bdata.currentSum/bdata.targetSum*100);
                     html = html.replaceAll('{css_name}',widget.CSS).replaceAll('{script_name}',widget.JS);
                     html = html.replaceAll('{refresh_interval}',widget.refreshInterval)
                     let text = widget.text;
+                    const progress = `<div class="progress-bar" style=""><span style="width: ${percent}%"></span></div>`
+                    const progressText = `<div class="progress-bar" style=""><span style="width: ${percent}%">${bdata.currentSum}/${bdata.targetSum}</span></div>`
+                    text = text.replaceAll('{Progress}',progress)
+                    text = text.replaceAll('{ProgressText}',progressText)
                     text = text.replaceAll('{Description}',bdata.description).replaceAll('\n','<br>');
                     text = text.replaceAll('{Current}',bdata.currentSum).replaceAll('{Maximum}',bdata.targetSum);
                     html = html.replaceAll('{text}',text);

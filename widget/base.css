@@ -1,3 +1,6 @@
+:root{
+    --progress-bar-height: 20px;
+}
 body{
     margin:0;
     color:white;
@@ -7,4 +10,21 @@ body{
 main{
     height: auto;
     width: 100%;
+}
+.progress-bar{
+    background: linear-gradient(45deg, #202020, #252525);
+    height: var(--progress-bar-height);
+    line-height: var(--progress-bar-height);
+    border-radius: 8px;
+    max-width: 200px
+}
+.progress-bar span{
+    background: linear-gradient(45deg, #fab22e, #ffcf76);
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 8px;
+    transition: width 1s;
+    font-size: var(--progress-bar-height);
+    text-align: center;
 }

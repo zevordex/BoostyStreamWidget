@@ -93,7 +93,7 @@ function addWidget(){
     widget.name = `Виджет №${widget.id}`;
     widget.text = ``;
     widget.goalIndex = 0;
-    widget.refreshInterval = 5;
+    widget.refreshInterval = 20;
     widget.link = "NONE";
     widget.JS = "base.js";
     widget.CSS = "base.css";
