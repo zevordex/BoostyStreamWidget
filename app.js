@@ -94,6 +94,7 @@ async function serverHandler(req,res){
                         bdata.description = "Ошибка, вероятно ошибка в ссылке или индексе"
                     }
                     let html = await fs.readFileSync('./widget/template.html','utf-8');
+                    if (!html) return console.log(CS.err,"Cannot find /widget/template.html !!") 
                     let percent = Math.round(bdata.currentSum/bdata.targetSum*100);
                     html = html.replaceAll('{css_name}',widget.CSS).replaceAll('{script_name}',widget.JS);
                     html = html.replaceAll('{refresh_interval}',widget.refreshInterval)
@@ -115,18 +116,22 @@ async function serverHandler(req,res){
     })
 }
 async function getBoostyGoal(page,index){
-    let promise = new Promise((resolve,reject)=>{
+    let promise = new Promise(async (resolve,reject)=>{
         https.get(page, function(res) {
             res.setEncoding('utf8');
             let htmlpage = '';
             res.on('data', function(data) {
                 htmlpage+=data;
             });
-            res.on('end',(ev)=>{
-                let page = parse(htmlpage);
-                let res = JSON.parse(page.querySelector('#initial-state').textContent).target.targets.data[index];
+            res.on('end',async (ev)=>{
+                let page = await parse(htmlpage);
+                if (!page) return console.log(CS.err,`Cannot parse a page`)
+                let initialState = page.querySelector('#initial-state');
+                if (!initialState) return console.log(CS.err,`Cannot get initialState`);
+                
+                let res = JSON.parse(initialState.textContent).target.targets.data[index];
                 if (!res) reject();
-                resolve(JSON.parse(page.querySelector('#initial-state').textContent).target.targets.data[index]);
+                resolve(res);
             })
         }).on('error', function(err) {
             console.log(err);

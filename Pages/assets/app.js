@@ -28,6 +28,7 @@ function initSettings(){
 }
 document.querySelector('#add-widget').addEventListener('click',addWidget);
 document.querySelector('#save-widget').addEventListener('click',saveStorage);
+document.querySelector('#save-settings').addEventListener('click',saveStorage);
 document.querySelector('#rename-widget').addEventListener('click',renameWidget);
 document.querySelector('#delete-widget').addEventListener('click',deleteWidget);
 
