@@ -11,7 +11,6 @@ const https = require('node:https');
 const fs = require('node:fs');
 const url = require('node:url');
 var storage = require('./storage.json');
-let {parse} = require('node-html-parser')
 //<---=======Vars============--->
 //Colorfull strings without "chalk" module
 const CS = {
@@ -89,6 +88,7 @@ async function serverHandler(req,res){
                         bdata = await getBoostyGoal(widget.link,widget.goalIndex);
                     }catch(e){
                         console.log(CS.err,`An error in widget #${widget.id}, maybe you forgot the link?`);
+                        console.log(e);
                         bdata.targetSum = 0;
                         bdata.currentSum = 0;
                         bdata.description = "Ошибка, вероятно ошибка в ссылке или индексе"
@@ -117,21 +117,19 @@ async function serverHandler(req,res){
 }
 async function getBoostyGoal(page,index){
     let promise = new Promise(async (resolve,reject)=>{
-        https.get(page, function(res) {
+        page = page.replaceAll("https://boosty.to/",''); //Just for old links in old configs.
+        https.get(`https://api.boosty.to/v1/target/${page}/ `, function(res) {
             res.setEncoding('utf8');
-            let htmlpage = '';
+            let json = '';
             res.on('data', function(data) {
-                htmlpage+=data;
+                json+=data;
             });
             res.on('end',async (ev)=>{
-                let page = await parse(htmlpage);
-                if (!page) return console.log(CS.err,`Cannot parse a page`)
-                let initialState = page.querySelector('#initial-state');
-                if (!initialState) return console.log(CS.err,`Cannot get initialState`);
-                
-                let res = JSON.parse(initialState.textContent).target.targets.data[index];
-                if (!res) reject();
-                resolve(res);
+                let boostyData = JSON.parse(json);
+                if (!boostyData.data[index]){
+                    reject(false);
+                }
+                resolve(boostyData.data[index]);
             })
         }).on('error', function(err) {
             console.log(err);
@@ -140,7 +138,6 @@ async function getBoostyGoal(page,index){
     })
     return promise;
 }
-
 
 
 
