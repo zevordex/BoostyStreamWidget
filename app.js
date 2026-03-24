@@ -87,7 +87,7 @@ async function serverHandler(req,res){
                     try{
                         bdata = await getBoostyGoal(widget.link,widget.goalIndex);
                     }catch(e){
-                        console.log(CS.err,`An error in widget #${widget.id}, maybe you forgot the link?`);
+                        console.log(CS.warning,`An error in widget #${widget.id}, maybe you forgot the link?`);
                         console.log(e);
                         bdata.targetSum = 0;
                         bdata.currentSum = 0;
@@ -118,23 +118,18 @@ async function serverHandler(req,res){
 async function getBoostyGoal(page,index){
     let promise = new Promise(async (resolve,reject)=>{
         page = page.replaceAll("https://boosty.to/",''); //Just for old links in old configs.
-        https.get(`https://api.boosty.to/v1/target/${page}/ `, function(res) {
-            res.setEncoding('utf8');
-            let json = '';
-            res.on('data', function(data) {
-                json+=data;
-            });
-            res.on('end',async (ev)=>{
-                let boostyData = JSON.parse(json);
-                if (!boostyData.data[index]){
-                    reject(false);
-                }
-                resolve(boostyData.data[index]);
-            })
-        }).on('error', function(err) {
-            console.log(err);
-            reject(err)
-        });
+
+        let res = await fetch(`https://api.boosty.to/v1/target/${page}/`);
+        try{
+            let boostyData = await res.json();
+            if (!boostyData.data[index]){
+                return reject(false);
+            }
+            resolve(boostyData.data[index]);
+        }catch(e){
+            console.error(CS.err,e);
+            return reject(false);
+        }
     })
     return promise;
 }
